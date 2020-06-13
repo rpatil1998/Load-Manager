@@ -10,7 +10,10 @@ import (
 
 )
 
+
 func main(){
+
+
 
     var port string
 	ips       := Ip.Get_ips(&port)

@@ -41,6 +41,10 @@ func Get_Parameters(ips *[]string, port string) map[string][]float64 {
 				(*ips)[len(*ips)-1]=""
 				*ips = (*ips)[:len(*ips)-1]
 
+
+				// Go to next ip
+				continue
+
 				//log.Fatalln(err)
 			}
 		}
