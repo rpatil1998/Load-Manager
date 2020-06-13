@@ -10,20 +10,22 @@ import (
 
 )
 
-
-
 func main(){
 
-
-	//var Table_Parameter map[string][]float64
-    var port int64
+    var port string
 	ips       := Ip.Get_ips(&port)
 
 	weights   := Weights.Get_Weights()
     Threshold := Weights.Get_Threshold()
 
     for{
-		Table_Parameter := Parameter.Get_Parameters(ips)
+		//var Table_Parameter map[string][]float64  contains all parameter fo all ips
+    	//
+    	// parameter : "Cpu_Utilisation", "Memory_Utilization" etc.
+
+		Table_Parameter := Parameter.Get_Parameters(&ips,port)
+
+		// Here answer represent index of best ip
 
 		answer := Algo.Algorithm(Table_Parameter,weights,Threshold,ips)
 

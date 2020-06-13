@@ -1,23 +1,48 @@
 package Parameter
 
 import (
+	"client/Notification"
 	"encoding/json"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"strconv"
+	"time"
 )
 
-func Get_Parameters(ips []string) map[string][]float64 {
+func Get_Parameters(ips *[]string, port string) map[string][]float64 {
 
 	Table := make(map[string][]float64)
 
+	var temp []string
 
-	for i :=0 ;i<len(ips); i++ {
+	for i:=0;i<len(*ips);i++{
+		temp = append(temp,(*ips)[i])
+	}
 
-		resp, err := http.Get("http://"+ips[i]+":9999/")
+
+	for i :=0 ;i<len(temp); i++ {
+
+		resp, err := http.Get("http://"+temp[i]+port)
 		if err!= nil {
-			log.Fatalln(err)
+
+			// If there is an error
+			// Retry after 100 milisecond
+			time.Sleep( 100 * time.Microsecond)
+			resp, err = http.Get("http://"+temp[i]+port)
+
+			if err!= nil {
+
+				// Server still not responding  Notify that this particular ip is not responding
+				Notification.Notify_ServerNotResponding(temp[i])
+
+				// Removing ip which is not responding
+				copy((*ips)[i:],(*ips)[i+1:])
+				(*ips)[len(*ips)-1]=""
+				*ips = (*ips)[:len(*ips)-1]
+
+				//log.Fatalln(err)
+			}
 		}
 		defer resp.Body.Close()
 
