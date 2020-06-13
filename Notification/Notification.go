@@ -13,3 +13,9 @@ func Notify_ServerNotResponding(ip string)  {
 	fmt.Println(ip+" has been discarded")
 
 }
+
+func Notify_ServerGivingUnexpectedOutput(ip string){
+
+	fmt.Println(ip + "  This server is giving unexpected output")
+
+}

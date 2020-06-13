@@ -69,8 +69,10 @@ func Get_Parameters(ips *[]string, port string) map[string][]float64 {
 				tt := float64(t)
 				Table[k] = append(Table[k],tt)
 			case float64 :
-				Table[k] = append(Table[k], vaa)
+				Table[k] = append(Table[k],vaa)
 			default :
+
+				Notification.Notify_ServerGivingUnexpectedOutput(temp[i])
 				continue
 			}
 		}
