@@ -19,3 +19,9 @@ func Notify_ServerGivingUnexpectedOutput(ip string){
 	fmt.Println(ip + "  This server is giving unexpected output")
 
 }
+
+func Relative_percentage_config()  {
+
+	fmt.Println("Please check Relative Percentage Config file")
+
+}

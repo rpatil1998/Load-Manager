@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-func Get_Parameters(ips *[]string, port string) map[string][]float64 {
+func Get_Parameters(ips *[]string, port string, relative_percentage_para []string) map[string][]float64 {
 
 	Table := make(map[string][]float64)
 
@@ -78,32 +78,18 @@ func Get_Parameters(ips *[]string, port string) map[string][]float64 {
 		}
 	}
 
-	Max_connections := float64(0)
-	Max_Network :=float64(0)
+	for i:=0;i<len(relative_percentage_para);i++{
+		Max_value := float64(0)
+		
+		for i := 0; i < len(Table[relative_percentage_para[i]]); i++ {
 
-
-	for i := 0; i < len(Table["Network_Utilization_out"]); i++ {
-
-		if Max_Network < Table["Network_Utilization_out"][i] {
-			Max_Network = Table["Network_Utilization_out"][i]
+			if Max_value < Table[relative_percentage_para[i]][i] {
+				Max_value = Table[relative_percentage_para[i]][i]
+			}
 		}
-	}
-	for i := 0; i < len(Table["Network_Utilization_out"]); i++ {
-
-		Table["Network_Utilization_out"][i] = Table["Network_Utilization_out"][i]/Max_Network*100
-	}
-
-
-
-
-	for i := 0; i < len(Table["Connections"]); i++ {
-
-		if Max_connections < Table["Connections"][i] {
-			Max_connections = Table["Connections"][i]
+		for i := 0; i < len(Table[relative_percentage_para[i]]); i++ {
+			Table[relative_percentage_para[i]][i] = Table[relative_percentage_para[i]][i]/Max_value*100
 		}
-	}
-	for i := 0; i < len(Table["Connections"]); i++ {
-		Table["Connections"][i] = Table["Connections"][i]/Max_connections *100
 
 	}
 

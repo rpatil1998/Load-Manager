@@ -20,7 +20,7 @@ class MyHttpRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
                          "Memory_Utilization" : memory_util ,
                          "Network_Utilization_out" : psutil.net_io_counters(pernic=False,nowrap=False)[0],
                          #"Network_Utilization_in" : psutil.net_io_counters(pernic=False,nowrap=True)[1]
-                         "Connections "   : subprocess.check_output('netstat -ano | grep ESTABLISHED | wc -l', shell=True)
+                         #"Connections "   : subprocess.check_output('netstat -ano | grep ESTABLISHED | wc -l', shell=True)
                          
                          }
             json_dump = json.dumps(data_set) #string of json object
